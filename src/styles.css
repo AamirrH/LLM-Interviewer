@@ -1,0 +1,5 @@
+@import '@fontsource-variable/inter';
+
+:root { font-family: 'Inter Variable', sans-serif; color: #f2f5f0; background: #101815; }
+body { margin: 0; }
+main { padding: 3rem; }

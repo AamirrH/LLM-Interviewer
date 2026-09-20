@@ -1,7 +1,13 @@
 import Dexie, { type Table } from 'dexie'
 import {
-  DEFAULT_SETTINGS, credentialSchema, parseBackup, settingsSchema,
-  type Backup, type Credential, type ProviderId, type Settings,
+  DEFAULT_SETTINGS,
+  credentialSchema,
+  parseBackup,
+  settingsSchema,
+  type Backup,
+  type Credential,
+  type ProviderId,
+  type Settings,
 } from './schema'
 
 type SettingsRecord = { id: 'preferences'; value: Settings }
@@ -44,8 +50,10 @@ export class LocalStore {
 
   async exportBackup(): Promise<Backup> {
     return {
-      app: 'llm-interviewer', version: 1,
-      exportedAt: new Date().toISOString(), settings: await this.getSettings(),
+      app: 'llm-interviewer',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      settings: await this.getSettings(),
     }
   }
 

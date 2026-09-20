@@ -9,7 +9,9 @@ beforeEach(() => {
   database = new AppDatabase(`test-${crypto.randomUUID()}`)
   store = new LocalStore(database)
 })
-afterEach(async () => { await database.delete() })
+afterEach(async () => {
+  await database.delete()
+})
 
 describe('local settings and credentials', () => {
   it('starts private with conservative defaults and no saved records', async () => {
@@ -71,8 +73,12 @@ describe('portable backups', () => {
 
   it('rejects injected credential fields and malformed preference values', async () => {
     const backup = await store.exportBackup()
-    expect(() => parseBackup(JSON.stringify({ ...backup, keys: [{ key: 'unsafe' }] }))).toThrow('Invalid backup')
-    expect(() => parseBackup(JSON.stringify({ ...backup, settings: { ...DEFAULT_SETTINGS, theme: 'neon' } }))).toThrow('Invalid backup')
+    expect(() => parseBackup(JSON.stringify({ ...backup, keys: [{ key: 'unsafe' }] }))).toThrow(
+      'Invalid backup',
+    )
+    expect(() =>
+      parseBackup(JSON.stringify({ ...backup, settings: { ...DEFAULT_SETTINGS, theme: 'neon' } })),
+    ).toThrow('Invalid backup')
   })
 
   it('caps backup size before parsing', () => {

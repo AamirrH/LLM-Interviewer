@@ -59,7 +59,9 @@ test('exports and restores preferences without exporting provider keys', async (
   await page.getByRole('button', { name: 'Save preferences' }).click()
   await expect(page.getByRole('status')).toContainText('Preferences saved')
   await page.getByRole('link', { name: 'Your data', exact: true }).click()
-  await page.getByLabel('Choose backup file').setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backup })
+  await page
+    .getByLabel('Choose backup file')
+    .setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backup })
   await page.getByRole('button', { name: 'Restore preferences' }).click()
   await expect(page.getByRole('status')).toContainText('Backup restored')
   await page.getByRole('link', { name: 'Preferences', exact: true }).click()
@@ -75,7 +77,13 @@ test('rejects invalid backup files and requires deliberate deletion', async ({ p
   await card.getByRole('button', { name: 'Save key' }).click()
   await expect(card.getByText('Saved locally', { exact: true })).toBeVisible()
   await page.getByRole('link', { name: 'Your data', exact: true }).click()
-  await page.getByLabel('Choose backup file').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{invalid') })
+  await page
+    .getByLabel('Choose backup file')
+    .setInputFiles({
+      name: 'bad.json',
+      mimeType: 'application/json',
+      buffer: Buffer.from('{invalid'),
+    })
   await expect(page.getByRole('alert')).toContainText('Invalid backup')
   await page.getByRole('button', { name: 'Delete all local data', exact: true }).click()
   const dialog = page.getByRole('dialog')
@@ -100,5 +108,7 @@ test('loaded settings work offline and at a narrow viewport', async ({ page, con
   await page.getByLabel('Color theme').selectOption('light')
   await page.getByRole('button', { name: 'Save preferences' }).click()
   await expect(page.getByRole('status')).toContainText('Preferences saved')
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  )
 })

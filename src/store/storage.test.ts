@@ -87,6 +87,19 @@ describe('portable backups', () => {
 })
 
 describe('delete all data', () => {
+  it('rolls back a restore if the replacement write fails', async () => {
+    await store.saveSettings({ ...DEFAULT_SETTINGS, theme: 'light' })
+    const backup = await store.exportBackup()
+    backup.settings.theme = 'dark'
+    database.settings.hook('creating', () => {
+      throw new Error('Simulated disk failure')
+    })
+    await expect(store.importBackup(JSON.stringify(backup))).rejects.toThrow(
+      'Simulated disk failure',
+    )
+    expect(await store.getSettings()).toMatchObject({ theme: 'light' })
+  })
+
   it('clears every table and restores unsaved defaults', async () => {
     await store.saveSettings({ ...DEFAULT_SETTINGS, theme: 'light' })
     await store.saveKey('gemini', 'first')

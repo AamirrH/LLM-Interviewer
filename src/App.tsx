@@ -199,7 +199,12 @@ export function App() {
                   {tabs.map(({ path, label, icon: Icon, description }) => {
                     const active = (activeTab?.path ?? tabs[0]!.path) === path
                     return (
-                      <a key={path} href={`#${path}`} aria-label={label} aria-current={active ? 'page' : undefined}>
+                      <a
+                        key={path}
+                        href={`#${path}`}
+                        aria-label={label}
+                        aria-current={active ? 'page' : undefined}
+                      >
                         <Icon size={19} />
                         <span>
                           <strong>{label}</strong>

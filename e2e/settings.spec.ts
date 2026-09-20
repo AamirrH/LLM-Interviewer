@@ -77,13 +77,11 @@ test('rejects invalid backup files and requires deliberate deletion', async ({ p
   await card.getByRole('button', { name: 'Save key' }).click()
   await expect(card.getByText('Saved locally', { exact: true })).toBeVisible()
   await page.getByRole('link', { name: 'Your data', exact: true }).click()
-  await page
-    .getByLabel('Choose backup file')
-    .setInputFiles({
-      name: 'bad.json',
-      mimeType: 'application/json',
-      buffer: Buffer.from('{invalid'),
-    })
+  await page.getByLabel('Choose backup file').setInputFiles({
+    name: 'bad.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from('{invalid'),
+  })
   await expect(page.getByRole('alert')).toContainText('Invalid backup')
   await page.getByRole('button', { name: 'Delete all local data', exact: true }).click()
   const dialog = page.getByRole('dialog')

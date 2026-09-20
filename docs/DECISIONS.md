@@ -10,3 +10,8 @@
 - Use Vitest with fake IndexedDB for storage behavior and Playwright against the production bundle for the batch gate.
 - Use explicit Save actions and visible status/error feedback for settings and credentials.
 - PWA installation and offline reload caching belong to B26; already-loaded B0 settings work without network.
+- Keep settings UI in focused provider, preference, and data components, with a small static route shell.
+- Ship no backend and make no provider calls in B0. Provider status reads "Saved locally", not "Connected".
+- Validate backup format and size before writes. Import uses a transaction, and a simulated failed write confirms rollback.
+- Package the font locally; all B0 runtime resources come from the same origin.
+- Review responsive production screenshots and use isolated Playwright profiles for destructive-flow testing.

@@ -14,7 +14,14 @@ export async function readReadiness(
     });
     if (response.ok) {
       const body: unknown = await response.json();
-      if (body && typeof body === "object" && "status" in body && "storage" in body && body.status === "ready" && body.storage === "ready") {
+      if (
+        body &&
+        typeof body === "object" &&
+        "status" in body &&
+        "storage" in body &&
+        body.status === "ready" &&
+        body.storage === "ready"
+      ) {
         return { status: "ready", storage: "ready" };
       }
     }

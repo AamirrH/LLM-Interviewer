@@ -40,3 +40,19 @@
 **Decision:** Expose GET /api/health/live and /api/health/ready, with one-second storage checks and no-store responses. The frontend uses a server-side proxy with a two-second timeout and returns only validated readiness fields.
 **Why:** Liveness and storage readiness answer different questions. The browser should not need a backend URL, CORS exceptions, or private error details.
 **Status:** accepted
+
+## 2026-10-03 — Foundation — Process lifetime
+**Decision:** Initialize storage before binding HTTP, use bounded HTTP timeouts, and shut down on interrupt or termination with a five-second grace period.
+**Why:** Startup must fail clearly for unusable storage or occupied ports, and normal shutdown should release the listener and database.
+**Status:** accepted
+
+## 2026-10-03 — Foundation — Shared developer commands
+**Decision:** Root npm scripts orchestrate both runtimes. A small Node runner chooses project-local Go or PATH, keeps caches under .cache, and builds to artifacts/. Concurrently manages both development processes.
+**Why:** One documented command surface works on Windows and Unix without requiring a global task runner. Go 1.26 is the minimum; this environment uses the verified current Go 1.27.1 archive.
+**Status:** accepted
+
+## 2026-10-03 — Foundation — Readiness interaction and browser checks
+**Decision:** Check readiness on page load and manual retry, abort superseded requests, and label unavailable storage as unverified. Use Playwright against production servers with separate .cache/e2e-data storage.
+**Why:** A stale response must not overwrite a newer check, and connectivity failures must not imply data loss. Automatic tests cover desktop, mobile, keyboard access, and recovery; screenshots support visual review.
+**Alternatives considered:** Continuous polling is unnecessary for a foundation screen. Real session lifecycle events can drive updates later.
+**Status:** accepted

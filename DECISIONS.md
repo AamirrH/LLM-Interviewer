@@ -56,3 +56,8 @@
 **Why:** A stale response must not overwrite a newer check, and connectivity failures must not imply data loss. Automatic tests cover desktop, mobile, keyboard access, and recovery; screenshots support visual review.
 **Alternatives considered:** Continuous polling is unnecessary for a foundation screen. Real session lifecycle events can drive updates later.
 **Status:** accepted
+
+## 2026-10-03 — Foundation — Formatting and build root
+**Decision:** Add Prettier to frontend lint checks and set the Next.js Turbopack root explicitly to frontend/.
+**Why:** JSX/CSS should remain reviewable and consistently formatted. Root and frontend npm lockfiles serve different runtimes and must not make Next infer an unintended build root.
+**Status:** accepted

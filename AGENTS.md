@@ -114,15 +114,16 @@ Never, under any circumstances, without exception:
 
 ## 10. Standard commands
 
-*(Fill in once the stack is set up — the agent should never have to guess these.)*
+Run from the repository root. See README.md for prerequisites and browser setup.
 
 | Purpose | Command |
 |---|---|
-| Install dependencies | `<fill in>` |
-| Run the app locally | `<fill in>` |
-| Run tests | `<fill in>` |
-| Run lint/format check | `<fill in>` |
-| Build | `<fill in>` |
+| Install dependencies | `npm ci`, then `npm run setup` |
+| Run the app locally | `npm run dev` |
+| Run tests | `npm test`; production browser tests: `npm run test:e2e` |
+| Run lint/format check | `npm run lint` |
+| Build | `npm run build` |
+| Full feature check | `npm run check` |
 
 ## 11. What "done" means for a feature
 

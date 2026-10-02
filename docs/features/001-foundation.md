@@ -1,6 +1,6 @@
 # Feature 001: local application foundation
 
-Status: in progress. Source: PRODUCT-DOCUMENT sections 5–6.
+Status: paused in progress at the user's request. Source: PRODUCT-DOCUMENT sections 5–6.
 
 ## Frozen scope
 
@@ -31,4 +31,19 @@ No bank entries, sessions, containers, AI calls, scoring, or simulated activity.
 
 ## Evidence
 
-Pending.
+- Test-first runs failed on the missing Go config/storage/HTTP/runtime functions
+  and missing frontend readiness module before their implementations were added.
+- Go tests passed in all four packages (config, storage, HTTP, orchestrator).
+- Eight frontend readiness unit tests passed.
+- Initial Next.js production builds passed, including the first workbench screen.
+  The final build after lint fixes and formatting is still pending.
+- Browser tests failed as expected against the placeholder screen before the UI
+  implementation; their final passing run and screenshot review remain pending.
+- Lint caught raw internal navigation links and state updates in an effect. Links
+  now use Next Link; state updates now run in a request-completion callback. The
+  latest check passed ESLint and was stopped as TypeScript checking began for the
+  user-requested pause. The newly added Prettier check still needs its final run.
+- Root and frontend npm installs reported zero vulnerabilities at install time.
+- Tested environment: Windows, Node 22.14.0, Go 1.27.1, Next.js 16.3.8. Docker is
+  stopped; no container behavior was attempted or claimed.
+- Feature is not complete. Resume instructions are in root STATE.md.

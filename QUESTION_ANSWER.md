@@ -69,3 +69,31 @@ Next.js and React remain project dependencies managed by npm lockfiles.
 
 **References:** [Official Go installation instructions](https://go.dev/doc/install);
 [project prerequisites](README.md#run-locally).
+
+## 2026-10-04 — Does npm run dev start both services?
+
+**Question:** Does `npm run dev` run the backend and frontend once their address
+environment variables are set?
+
+**Answer:** Yes. From the repository root, it uses `concurrently` to start the Go
+orchestrator and Next.js development server together. Both inherit environment
+variables from the terminal running the command. For example, in PowerShell:
+
+```powershell
+$env:APP_ADDRESS='127.0.0.1:8081'
+$env:ORCHESTRATOR_URL='http://127.0.0.1:8081'
+npm run dev
+```
+
+`APP_ADDRESS` sets the backend's listening address; `ORCHESTRATOR_URL` tells the
+frontend's server-side proxy where to reach it. Use the same host and port, with
+the `http://` scheme only in the URL. Open `http://127.0.0.1:3000` for the UI.
+Ctrl+C stops the development processes.
+
+These overrides are optional when the default backend port 8080 is free; this
+example uses 8081 because 8080 was occupied during foundation verification.
+Set them in the same terminal before launching. The root `.env.example` is
+documentation and is not automatically loaded by these commands.
+
+**References:** [Root development commands](package.json);
+[configuration](README.md#configuration).

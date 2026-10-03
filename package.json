@@ -1,0 +1,25 @@
+{
+  "name": "coding-round",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "scripts": {
+    "setup": "npm ci --prefix frontend && node scripts/go.mjs mod download",
+    "dev": "concurrently --kill-others --names backend,web \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "node scripts/go.mjs run ./cmd/orchestrator",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "start:backend": "node scripts/go.mjs start",
+    "start:frontend": "npm --prefix frontend run start",
+    "test": "node scripts/go.mjs test ./... && npm --prefix frontend test",
+    "test:e2e": "npm --prefix frontend run test:e2e",
+    "lint": "node scripts/go.mjs fmt-check && node scripts/go.mjs vet ./... && npm --prefix frontend run lint && npm --prefix frontend run typecheck",
+    "build": "node scripts/go.mjs build-app && npm --prefix frontend run build",
+    "check": "npm test && npm run lint && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "10.0.5"
+  }
+}

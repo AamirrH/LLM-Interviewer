@@ -1,14 +1,17 @@
 ## Current status
-**Last updated:** 2026-10-03 — foundation paused at user's request
-**Done:** Repository workflow; Go configuration, SQLite initialization, health API, process lifecycle, and frontend readiness transport implemented with passing unit tests. Their implementation/test checkpoints are pushed.
-**In progress:** Feature 001 — local application foundation. UI, developer commands, and browser tests are checkpointed; feature gate is NOT complete.
-**Next up:** Resume this feature: run `npm run check`, then production browser tests and visual review. Do not begin bank/session work yet.
-**Known issues / broken state:** Latest check passed ESLint and was stopped as TypeScript checking began for this pause. Earlier lint caught Next navigation and React effect issues; those fixes passed ESLint, but the final check/build gate has not passed. Browser tests failed as expected against the initial placeholder; they have not yet passed against the implemented screen. Docker daemon is stopped and is not needed for this feature.
+**Last updated:** 2026-10-04 — Feature 001 complete
+**Done:**
+- Feature 001: local Go/Next.js/SQLite foundation, readiness UI, developer commands, and production browser checks.
+**In progress:** none — awaiting next assignment/review
+**Next up:** Scope the verified scenario bank feature from PRD sections 7.1 and 9; do not start until the foundation handback is accepted.
+**Known issues / broken state:** No failing foundation checks. Another local service occupies port 8080; use APP_ADDRESS=127.0.0.1:8081 and ORCHESTRATOR_URL=http://127.0.0.1:8081 to run this app alongside it. Docker was stopped and container features remain unimplemented.
 
-## Resume notes
-- Branch: `feat/foundation`; root workflow files are canonical. PRD remains `context/PRODUCT-DOCUMENT.md`.
-- Go 1.27.1 is installed in ignored `.tools/go/`; root scripts use it automatically. Module minimum is Go 1.26. Dependencies are installed; Go caches are in `.cache/`.
-- Run `npm run check`. If an execution fails because of sandbox permissions/network access, use escalation rather than waiting on a stalled process indefinitely.
-- Run browser tests in PowerShell with `$env:PLAYWRIGHT_CHANNEL='chrome'; $env:CI='1'; npm run test:e2e` after a successful build. Chrome is installed. Windows process cleanup required escalation during the first failing browser run.
-- Browser tests start production frontend/backend, use `.cache/e2e-data`, and write desktop/mobile/unavailable screenshots under ignored `artifacts/`. Inspect these images before declaring the feature complete.
-- Review the final diff, update `docs/features/001-foundation.md` with actual evidence, update this state, commit and push, then hand back. No merge or release has been performed.
+## Verification and review
+- Branch: `feat/foundation`. Implementation and tests are pushed; no merge or release performed.
+- `npm run check` passed: Go tests/vet/build, frontend tests/lint/format/typecheck, and production build.
+- Production Chrome browser tests: 3 passed. Desktop/mobile/unavailable screenshots inspected under ignored `artifacts/`.
+- Browser tests own loopback ports 13000/18080 and `.cache/e2e-data`; they never reuse existing services. Use `$env:PLAYWRIGHT_CHANNEL='chrome'; $env:CI='1'; npm run test:e2e` after building.
+- Windows sandbox can stall lint or prevent test-server cleanup; elevated verification completed successfully.
+- Scope and detailed evidence: `docs/features/001-foundation.md`. Product spec: `context/PRODUCT-DOCUMENT.md`.
+- Local Go 1.27.1 is in ignored `.tools/go/`; root commands select it automatically. Module minimum is Go 1.26.
+- Separate local changes added npm dependency `go` to root package.json/package-lock.json during handback. Left uncommitted and untouched; these changes are outside the verified foundation commits.

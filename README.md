@@ -4,7 +4,7 @@ A local workbench for practicing AI-assisted coding interviews. The planned
 experience uses real codebases, an IDE, verified scenarios, and evidence-based
 feedback on how you work with AI.
 
-**In progress: foundation only; final verification is pending.** The app provides a responsive overview
+**Complete: local application foundation.** The app provides a responsive overview
 and live backend/SQLite readiness. Scenario generation, the bank, IDE containers,
 practice sessions, AI assistance, and reports are not implemented.
 

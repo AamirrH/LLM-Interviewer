@@ -1,6 +1,6 @@
 # Feature 001: local application foundation
 
-Status: paused in progress at the user's request. Source: PRODUCT-DOCUMENT sections 5–6.
+Status: complete, ready for independent review. Source: context/PRODUCT-DOCUMENT sections 5–6.
 
 ## Frozen scope
 
@@ -35,15 +35,26 @@ No bank entries, sessions, containers, AI calls, scoring, or simulated activity.
   and missing frontend readiness module before their implementations were added.
 - Go tests passed in all four packages (config, storage, HTTP, orchestrator).
 - Eight frontend readiness unit tests passed.
-- Initial Next.js production builds passed, including the first workbench screen.
-  The final build after lint fixes and formatting is still pending.
-- Browser tests failed as expected against the placeholder screen before the UI
-  implementation; their final passing run and screenshot review remain pending.
-- Lint caught raw internal navigation links and state updates in an effect. Links
-  now use Next Link; state updates now run in a request-completion callback. The
-  latest check passed ESLint and was stopped as TypeScript checking began for the
-  user-requested pause. The newly added Prettier check still needs its final run.
+- On 2026-10-04, `npm run check` passed: Go tests in all four packages,
+  eight frontend transport tests, Go formatting/vet, ESLint, Prettier, TypeScript,
+  Go executable build, and the Next.js production build.
+- Browser tests failed against the placeholder screen before UI implementation.
+  The final production Chrome run passed all three tests in 7.9 seconds: real
+  readiness and empty state, simulated unavailable response with recovery to the
+  real backend, and narrow-screen layout with keyboard navigation.
+- Inspected desktop (1280px), mobile (390px), and unavailable-state screenshots in
+  artifacts/: text and controls fit, no horizontal overflow, and keyboard focus
+  is visible. Mobile's skip-link overlay appears intentionally while focused.
+- The first resumed browser run found port 8080 occupied by another service.
+  Tests now own loopback ports 13000/18080 and never reuse existing servers.
+  Frontend lint/format/typecheck passed again after this configuration change.
+- Windows sandbox execution stalled during lint and browser-server cleanup.
+  Elevated reruns completed successfully, including test-server cleanup. No
+  assertions were skipped or weakened; the unrelated port-8080 service was left running.
 - Root and frontend npm installs reported zero vulnerabilities at install time.
 - Tested environment: Windows, Node 22.14.0, Go 1.27.1, Next.js 16.3.8. Docker is
   stopped; no container behavior was attempted or claimed.
-- Feature is not complete. Resume instructions are in root STATE.md.
+- Reviewed the feature diff and checked whitespace and common secret patterns.
+  Prior pushed pause checkpoints retain their `wip:` subjects; history was not
+  rewritten. The completed checks above supersede their pending verification.
+- Bank/session/container/AI functionality remains outside this feature's scope.

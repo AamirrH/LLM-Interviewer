@@ -1,7 +1,8 @@
 ## Current status
-**Last updated:** 2026-10-04 — Feature 001 complete
+**Last updated:** 2026-10-04 — Project Q&A log added; Feature 001 complete
 **Done:**
 - Feature 001: local Go/Next.js/SQLite foundation, readiness UI, developer commands, and production browser checks.
+- Project Q&A log: SQLite rationale and Go installation answers captured in QUESTION_ANSWER.md; ongoing logging rule added to AGENTS.md.
 **In progress:** none — awaiting next assignment/review
 **Next up:** Scope the verified scenario bank feature from PRD sections 7.1 and 9; do not start until the foundation handback is accepted.
 **Known issues / broken state:** No failing foundation checks. Another local service occupies port 8080; use APP_ADDRESS=127.0.0.1:8081 and ORCHESTRATOR_URL=http://127.0.0.1:8081 to run this app alongside it. Docker was stopped and container features remain unimplemented.

@@ -79,6 +79,7 @@ which validates the response and keeps backend error details off the page.
 - `scripts/`: shared local Go command runner.
 - [Product document](context/PRODUCT-DOCUMENT.md): intended product and architecture.
 - [State](STATE.md), [decisions](DECISIONS.md), [backlog](BACKLOG.md): current context.
+- [Questions and answers](QUESTION_ANSWER.md): explanations of technology choices and project setup.
 - [Foundation scope and evidence](docs/features/001-foundation.md): this feature's gate.
 
 Development follows [AGENTS.md](AGENTS.md): one feature at a time, tests first,

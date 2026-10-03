@@ -138,6 +138,7 @@ A feature is done, and ready to stop on, when:
 
 ## 12. General style
 
+- When the user asks why a technology or approach was chosen, or asks about project setup, append the question and answer to root `QUESTION_ANSWER.md` in the same task. Include the date, rationale, relevant alternatives/tradeoffs, and links to source context. Append corrections rather than silently replacing earlier answers; keep formal decisions in `DECISIONS.md` too.
 - Direct, terse commit messages and summaries — no filler, no hedging.
 - Prefer working, incremental code over a large speculative rewrite.
 - If you hit a real blocker (not covered by §4's "solve it yourself" default), say what it is and what you'd do by default if not told otherwise, rather than just stopping with a question and nothing else.

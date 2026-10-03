@@ -97,3 +97,19 @@ documentation and is not automatically loaded by these commands.
 
 **References:** [Root development commands](package.json);
 [configuration](README.md#configuration).
+
+## 2026-10-04 — Follow-up: should we choose Postgres now?
+
+**Question/context:** Following the SQLite discussion above, the user wants to
+prepare for growth beyond local use. They already have Postgres installed and
+do not consider managing a database server a significant burden.
+
+**Discussion status:** Revisit the database choice at the start of the next
+session, before building the next feature. The earlier SQLite explanation
+describes the original local-first PRD; it does not settle the choice under
+these clarified priorities. Compare the intended deployment and concurrency
+needs, development/test setup, and the cost of switching now versus later.
+No database switch has been decided or implemented. If Postgres is selected,
+record the new decision and scope the migration explicitly.
+
+**Reference:** [Next-session checkpoint](STATE.md).

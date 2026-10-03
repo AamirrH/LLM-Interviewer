@@ -61,3 +61,9 @@
 **Decision:** Add Prettier to frontend lint checks and set the Next.js Turbopack root explicitly to frontend/.
 **Why:** JSX/CSS should remain reviewable and consistently formatted. Root and frontend npm lockfiles serve different runtimes and must not make Next infer an unintended build root.
 **Status:** accepted
+
+## 2026-10-04 — Foundation — Isolated browser-test ports
+**Decision:** Start browser-test production services on loopback ports 13000 and 18080, explicitly connect the frontend to that backend, and never reuse existing servers.
+**Why:** The acceptance run failed because another service occupied port 8080. Dedicated ports let checks coexist with normal development services and ensure they exercise this build and its test database.
+**Alternatives considered:** Stopping an unrelated service would disrupt other work; reusing it could validate the wrong application or storage.
+**Status:** accepted

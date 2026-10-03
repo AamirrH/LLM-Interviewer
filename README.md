@@ -48,9 +48,10 @@ npm run start:frontend
 For browser checks, install Playwright Chromium once with
 `cd frontend && npx playwright install chromium`, then return to the root.
 Alternatively set `PLAYWRIGHT_CHANNEL=chrome` in your shell to use installed Chrome.
-The tests start both production services when needed. They use `.cache/e2e-data`
-for their own backend and save screenshots in `artifacts/`. Existing local servers
-can be reused outside CI; stop them for an isolated test run.
+The tests start their own production services on loopback ports 13000 (frontend)
+and 18080 (backend), use `.cache/e2e-data`, and save screenshots in `artifacts/`.
+They never reuse existing servers; leave those two test ports free. Development
+services on ports 3000 and 8080 can keep running.
 
 ## Configuration
 

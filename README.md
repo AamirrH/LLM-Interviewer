@@ -4,7 +4,7 @@ A local workbench for practicing AI-assisted coding interviews. The planned
 experience uses real codebases, an IDE, verified scenarios, and evidence-based
 feedback on how you work with AI.
 
-**In progress: foundation only; final verification is pending.** The app provides a responsive overview
+**Complete: local application foundation.** The app provides a responsive overview
 and live backend/SQLite readiness. Scenario generation, the bank, IDE containers,
 practice sessions, AI assistance, and reports are not implemented.
 
@@ -79,6 +79,7 @@ which validates the response and keeps backend error details off the page.
 - `scripts/`: shared local Go command runner.
 - [Product document](context/PRODUCT-DOCUMENT.md): intended product and architecture.
 - [State](STATE.md), [decisions](DECISIONS.md), [backlog](BACKLOG.md): current context.
+- [Questions and answers](QUESTION_ANSWER.md): explanations of technology choices and project setup.
 - [Foundation scope and evidence](docs/features/001-foundation.md): this feature's gate.
 
 Development follows [AGENTS.md](AGENTS.md): one feature at a time, tests first,

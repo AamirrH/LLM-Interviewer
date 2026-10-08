@@ -67,3 +67,9 @@
 **Why:** The acceptance run failed because another service occupied port 8080. Dedicated ports let checks coexist with normal development services and ensure they exercise this build and its test database.
 **Alternatives considered:** Stopping an unrelated service would disrupt other work; reusing it could validate the wrong application or storage.
 **Status:** accepted
+
+## 2026-10-04 — Project Q&A — Dated answers and corrections
+**Decision:** Maintain the requested root QUESTION_ANSWER.md as dated question-and-answer entries, with source links and appended corrections. Record future rationale/setup answers through a short AGENTS.md rule; retain DECISIONS.md for formal decisions.
+**Why:** This makes conversational explanations easy to find and preserves the distinction between an explanation, a user preference, and an implemented change.
+**Alternatives considered:** Keeping answers only in chat or mixing them into the decision log would make them harder to discover and read as questions.
+**Status:** accepted

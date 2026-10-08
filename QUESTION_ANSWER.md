@@ -1,0 +1,115 @@
+# Project questions and answers
+
+Answers to questions raised while building this project: why we chose a tool,
+what alternatives we considered, and how the setup works.
+
+Append dated entries as these questions arise. Keep answers specific to this
+project, link to the relevant spec or decision, and distinguish current behavior
+from future plans. If an answer changes, append a correction referencing the
+earlier entry. Formal implementation decisions still belong in [DECISIONS.md](DECISIONS.md).
+
+## 2026-10-04 — Why SQLite instead of Postgres or MySQL?
+
+**Question:** Why did we choose SQLite? Why not Postgres or MySQL?
+
+**Answer:** The PRD explicitly chooses SQLite for a local, single-user application.
+It provides persistent storage and transactions without a separate database
+server, service, credentials, or network port to manage. The Go application opens
+the database directly; no separate SQLite installation is required.
+
+The planned database workload is scenario metadata, sessions, evidence logs,
+reports, and settings. Codebases and container images live outside the database.
+The current foundation only initializes an `app_metadata` table; those product
+features are not implemented yet.
+
+Postgres and MySQL would also work, but would add setup and administration that
+the current scope does not need. Their support for many concurrent writers and
+shared access across machines becomes more relevant for a hosted product.
+
+**Tradeoff:** SQLite permits one writer at a time. Our foundation uses WAL mode
+and a single pooled connection. A future multi-user version should reassess
+concurrency requirements; the PRD identifies Postgres as the likely successor.
+Migration would require schema, query, and data migration work, not just changing
+a connection string.
+
+**References:** [PRD, sections 5–6](context/PRODUCT-DOCUMENT.md#6-tech-stack-and-why);
+[storage initialization decision](DECISIONS.md#2026-10-03--foundation--storage-initialization).
+
+## 2026-10-04 — Do I need to install Go?
+
+**Question:** Can I run the Go server without installing Go globally?
+
+**Answer:** On the development machine used for the foundation, Go 1.27.1 was
+already installed under the ignored `.tools/go/` directory. The project requires
+Go 1.26 or newer. `npm run dev` and `npm run dev:backend` use the shared runner,
+which selects that local installation if present and otherwise uses `go` on PATH.
+
+A fresh checkout does not contain `.tools/go/`, so a new machine needs a Go
+installation. The npm package named `go` is not required by this project and is
+not how we install the Go toolchain.
+
+**References:** [Go runner](scripts/go.mjs);
+[local setup](README.md#run-locally).
+
+## 2026-10-04 — Can we use global installations instead?
+
+**Question:** I prefer global installations. What should I install?
+
+**Answer:** Install Go 1.26 or newer using the official Windows x64 MSI, then open
+a new terminal and check `go version` and `where.exe go`. Node.js with npm and Git
+were already installed on this machine; the foundation was verified with Node
+22.14.0. Docker Desktop is needed for future container features, not the current
+foundation. SQLite is embedded and needs no separate installation.
+
+**Preference and current behavior:** The user prefers global toolchain
+installations. Global Go installation has not yet been confirmed in this log.
+The runner still prefers `.tools/go/` when present; switching that preference is
+pending and was not part of creating this document. Application packages such as
+Next.js and React remain project dependencies managed by npm lockfiles.
+
+**References:** [Official Go installation instructions](https://go.dev/doc/install);
+[project prerequisites](README.md#run-locally).
+
+## 2026-10-04 — Does npm run dev start both services?
+
+**Question:** Does `npm run dev` run the backend and frontend once their address
+environment variables are set?
+
+**Answer:** Yes. From the repository root, it uses `concurrently` to start the Go
+orchestrator and Next.js development server together. Both inherit environment
+variables from the terminal running the command. For example, in PowerShell:
+
+```powershell
+$env:APP_ADDRESS='127.0.0.1:8081'
+$env:ORCHESTRATOR_URL='http://127.0.0.1:8081'
+npm run dev
+```
+
+`APP_ADDRESS` sets the backend's listening address; `ORCHESTRATOR_URL` tells the
+frontend's server-side proxy where to reach it. Use the same host and port, with
+the `http://` scheme only in the URL. Open `http://127.0.0.1:3000` for the UI.
+Ctrl+C stops the development processes.
+
+These overrides are optional when the default backend port 8080 is free; this
+example uses 8081 because 8080 was occupied during foundation verification.
+Set them in the same terminal before launching. The root `.env.example` is
+documentation and is not automatically loaded by these commands.
+
+**References:** [Root development commands](package.json);
+[configuration](README.md#configuration).
+
+## 2026-10-04 — Follow-up: should we choose Postgres now?
+
+**Question/context:** Following the SQLite discussion above, the user wants to
+prepare for growth beyond local use. They already have Postgres installed and
+do not consider managing a database server a significant burden.
+
+**Discussion status:** Revisit the database choice at the start of the next
+session, before building the next feature. The earlier SQLite explanation
+describes the original local-first PRD; it does not settle the choice under
+these clarified priorities. Compare the intended deployment and concurrency
+needs, development/test setup, and the cost of switching now versus later.
+No database switch has been decided or implemented. If Postgres is selected,
+record the new decision and scope the migration explicitly.
+
+**Reference:** [Next-session checkpoint](STATE.md).

@@ -11,3 +11,10 @@ playwright-report/
 *.log
 *.exe
 *.tsbuildinfo
+.vibe-wise-codex/
+.AGENTS.md
+.BACKLOG.md
+.DECISIONS.md
+.FEATURE_TEST.md
+.QUESTION_ANSWER.md
+.STATE.md
